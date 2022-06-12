@@ -3,17 +3,44 @@ import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm"
 import ImagePopup from "./ImagePopup";
+import { useState } from 'react';
 
 function App() {
+
+  
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false) 
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
+
+
+
+  function handleEditProfileClick () {
+    setIsEditProfilePopupOpen(!isEditProfilePopupOpen)
+  }
+
+  function handleEditAvatarClick () {
+    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
+  }
+
+  function handleAddPlaceClick () {
+    setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
+  }
+
+  function closeAllPopups () {
+    setIsEditProfilePopupOpen(false)
+    setIsEditAvatarPopupOpen(false)
+    setIsAddPlacePopupOpen(false)
+  }
+
   return (
     <div className="page">
       <div>
         <Header/>
 
         <Main 
-          handleEditAvatarClick = {() => {document.querySelector('.popup_avatar').classList.add('popup_opened');}}
-          handleEditProfileClick = {() => {document.querySelector('.popup_edit-button').classList.add('popup_opened');}}
-          handleAddPlaceClick = {() => {document.querySelector('.popup_add-button').classList.add('popup_opened');}}
+          onEditProfile = {handleEditProfileClick}
+          onEditAvatar = {handleEditAvatarClick}
+          onAddPlace = {handleAddPlaceClick}
         />
 
         <Footer/>
@@ -21,6 +48,8 @@ function App() {
         <PopupWithForm 
           name = "avatar"
           title ="Обновить аватар"
+          isOpen = {isEditAvatarPopupOpen}
+          onClose = {closeAllPopups}
           children = {
             <fieldset className="popup__fieldset">
               <label className="popup__field">
@@ -34,6 +63,8 @@ function App() {
         <PopupWithForm 
           name = "edit-button"
           title ="Редактировать профиль"
+          isOpen = {isEditProfilePopupOpen}
+          onClose = {closeAllPopups}
           children = {
             <fieldset className="popup__fieldset">
               <label className="popup__field">
@@ -51,6 +82,8 @@ function App() {
         <PopupWithForm 
           name = "add-button"
           title ="Новое место"
+          isOpen = {isAddPlacePopupOpen}
+          onClose = {closeAllPopups}
           children = {
             <fieldset className="popup__fieldset">
               <label className="popup__field">
@@ -68,6 +101,7 @@ function App() {
         <PopupWithForm 
           name = "trash"
           title ="Вы уверены?"
+          onClose = {closeAllPopups}
 
         />
 
