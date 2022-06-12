@@ -1,0 +1,16 @@
+const PopupWithForm = (props) => {
+return (
+    <div className={`popup popup_${props.name}`}>
+      <div className="popup__container">
+        <button className="popup__exit-button" type="button" aria-label="Закрыть форму"></button>
+        <form name="popup__form" id={`popup__form_${props.name}`} className="popup__form" noValidate>
+          <h2 className="popup__title popup__title_avatar">{props.title}</h2>
+            {props.children}
+          <button className="popup__save-button popup__save-button_avatar" type="submit" aria-label="Сохранить">Сохранить</button>
+        </form>
+      </div>
+    </div>
+  )
+}
+
+export default PopupWithForm;
