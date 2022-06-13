@@ -6,20 +6,41 @@ import ImagePopup from "./ImagePopup";
 import { useState } from 'react';
 import api from "../utils/api";
 import { useEffect} from 'react';
+import Card from "./Card";
+
+
 
 function App() {
 
-  const [useData, setData] = useState([])
+  const [userData, setUserData] = useState([])
+  const [cards, setCards] = useState([])
 
   useEffect(() => {
     api.getUserInformation()
-  .then((result) => {
-    console.log(result)
-    setData(result)
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+      .then((result) => {
+        console.log(result)
+        setUserData(result)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  },[])
+
+  useEffect(() => {
+    api.getInitialCards()
+      .then((result) => {
+        console.log(result)
+        setCards(result.map((item) => ({
+          likes: item.likes.length,
+          name: item.name,
+          link: item.link
+        }))
+          )
+        
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   },[])
 
   
@@ -56,10 +77,20 @@ function App() {
           onEditProfile = {handleEditProfileClick}
           onEditAvatar = {handleEditAvatarClick}
           onAddPlace = {handleAddPlaceClick}
-          userName = {useData.name}
-          userDescription = {useData.about}
-          userAvatar = {useData.avatar}
+          userName = {userData.name}
+          userDescription = {userData.about}
+          userAvatar = {userData.avatar}
         />
+
+      <section>
+        <ul className="cards">
+        {cards.map((card) => <Card {...card}/> ) }
+        </ul>
+
+      </section>
+
+        {/* <Card />
+        {cards.map((card) => <Card {...card}/> ) } */}
 
         <Footer/>
 

@@ -16,11 +16,11 @@ const Main = (props) => {
         <button type="button" className="profile__add-button" onClick={props.onAddPlace}></button>
       </section>
 
-      <section>
+      {/* <section>
         <ul className="cards">
         </ul>
 
-      </section>
+      </section> */}
 
 
 
