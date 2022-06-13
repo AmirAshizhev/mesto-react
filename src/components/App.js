@@ -6,14 +6,20 @@ import ImagePopup from "./ImagePopup";
 import { useState } from 'react';
 import api from "../utils/api";
 import { useEffect} from 'react';
-import Card from "./Card";
+
 
 
 
 function App() {
 
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false) 
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
+
   const [userData, setUserData] = useState([])
   const [cards, setCards] = useState([])
+  const [selectedCard, setSelectedCard] = useState(null)
 
   useEffect(() => {
     api.getUserInformation()
@@ -33,7 +39,8 @@ function App() {
         setCards(result.map((item) => ({
           likes: item.likes.length,
           name: item.name,
-          link: item.link
+          link: item.link,
+          key: item._id
         }))
           )
         
@@ -44,10 +51,13 @@ function App() {
   },[])
 
   
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false) 
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
 
+  function handleCardClick(card) {
+    setIsImagePopupOpen(!isImagePopupOpen)
+    setSelectedCard(card)
+    console.log(card)
+    
+  }
 
 
   function handleEditProfileClick () {
@@ -66,6 +76,9 @@ function App() {
     setIsEditProfilePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
     setIsAddPlacePopupOpen(false)
+    setIsImagePopupOpen(false)
+    setSelectedCard(false)
+  
   }
 
   return (
@@ -80,17 +93,10 @@ function App() {
           userName = {userData.name}
           userDescription = {userData.about}
           userAvatar = {userData.avatar}
+          cards={cards}
+          onCardClick={handleCardClick}
         />
 
-      <section>
-        <ul className="cards">
-        {cards.map((card) => <Card {...card}/> ) }
-        </ul>
-
-      </section>
-
-        {/* <Card />
-        {cards.map((card) => <Card {...card}/> ) } */}
 
         <Footer/>
 
@@ -154,22 +160,15 @@ function App() {
 
         />
 
-        <ImagePopup/>
+        <ImagePopup
+          card = {selectedCard}
+          isOpen = {isImagePopupOpen}
+          onClose = {closeAllPopups}
+        />
 
       </div>
 
-      <template id="cards__template">
-        <li className="cards__item">
-          <img src=" " alt="" className="cards__image" />
-          <h2 className="cards__title"></h2>
-          <div className="cards__like-container">
-            <button type="button" className="cards__like"></button>
-            <span className="cards__like-counter">0</span>
-          </div>
 
-          <button type="button" className="cards__trash"></button>
-        </li>
-      </template>
 
     </div>
   );

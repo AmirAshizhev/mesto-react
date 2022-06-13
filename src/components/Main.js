@@ -1,4 +1,4 @@
-
+import Card from "./Card";
 
 const Main = (props) => {
     return  (
@@ -16,11 +16,12 @@ const Main = (props) => {
         <button type="button" className="profile__add-button" onClick={props.onAddPlace}></button>
       </section>
 
-      {/* <section>
+      <section>
         <ul className="cards">
+          {props.cards.map((card) => <Card {...card} card={card} onCardClick={props.onCardClick}/> ) }
         </ul>
 
-      </section> */}
+      </section>
 
 
 
