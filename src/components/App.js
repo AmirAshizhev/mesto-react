@@ -4,8 +4,23 @@ import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm"
 import ImagePopup from "./ImagePopup";
 import { useState } from 'react';
+import api from "../utils/api";
+import { useEffect} from 'react';
 
 function App() {
+
+  const [useData, setData] = useState([])
+
+  useEffect(() => {
+    api.getUserInformation()
+  .then((result) => {
+    console.log(result)
+    setData(result)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+  },[])
 
   
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false) 
@@ -41,6 +56,9 @@ function App() {
           onEditProfile = {handleEditProfileClick}
           onEditAvatar = {handleEditAvatarClick}
           onAddPlace = {handleAddPlaceClick}
+          userName = {useData.name}
+          userDescription = {useData.about}
+          userAvatar = {useData.avatar}
         />
 
         <Footer/>
