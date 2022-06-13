@@ -7,7 +7,7 @@ const ImagePopup = (props) => {
         <p className="popup__text">{props.card?.name}</p>
       </div>
     </div>
-    )
+  )
 }
 
 export default ImagePopup;

@@ -34,36 +34,6 @@ function App() {
       });
   },[])
 
-
-  // useEffect(() => {
-  //   api.getUserInformation()
-  //     .then((result) => {
-  //       console.log(result)
-  //       setUserData(result)
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // },[])
-
-  // useEffect(() => {
-  //   api.getInitialCards()
-  //     .then((result) => {
-  //       console.log(result)
-  //       setCards(result.map((item) => ({
-  //         likes: item.likes.length,
-  //         name: item.name,
-  //         link: item.link,
-  //         key: item._id
-  //       }))
-  //         )
-        
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // },[])
-
   function handleCardClick(card) {
     setIsImagePopupOpen(!isImagePopupOpen)
     setSelectedCard(card)

@@ -1,8 +1,8 @@
 import Card from "./Card";
 
 const Main = (props) => {
-    return  (
-      <main>
+  return  (
+    <main>
       <section className="profile">
         <div className="profile__avatar-container">
           <img src={props.userAvatar} alt="Аватар профиля" className="profile__avatar" />
