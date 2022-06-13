@@ -6,7 +6,7 @@ return (
         <form name="popup__form" id={`popup__form_${props.name}`} className="popup__form" noValidate>
           <h2 className="popup__title popup__title_avatar">{props.title}</h2>
             {props.children}
-          <button className="popup__save-button popup__save-button_avatar" type="submit" aria-label="Сохранить">Сохранить</button>
+          <button className="popup__save-button popup__save-button_avatar" type="submit" aria-label="Сохранить">{props.buttonText}</button>
         </form>
       </div>
     </div>

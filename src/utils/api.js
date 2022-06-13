@@ -2,7 +2,6 @@ class Api {
   constructor(options) {
     this._url = options.baseUrl;
     this._headers = options.headers
-
   }
 
   _checkResponse(res) {
@@ -28,7 +27,6 @@ class Api {
         name: data.name,
         about: data.about
       })
-
     })
 
     .then(this._checkResponse);
@@ -44,8 +42,7 @@ class Api {
       })
 
     })
-    .then(this._checkResponse)
-    ;
+    .then(this._checkResponse);
   }
 
   getInitialCards() {
@@ -59,7 +56,6 @@ class Api {
     return fetch(`${this._url}/cards/${id}`, {
       method: 'DELETE',
       headers: this._headers
-
     })
     .then(this._checkResponse)
     ;
@@ -77,7 +73,6 @@ class Api {
     return fetch(`${this._url}/cards/${id}/likes`, {
       method: 'DELETE',
       headers: this._headers
-
     })
     .then(this._checkResponse)
     ;
@@ -90,15 +85,11 @@ class Api {
       body: JSON.stringify({
         avatar: data.link
       })
-
     })
 
     .then(this._checkResponse);
   }
-
-
 }
-
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-41',

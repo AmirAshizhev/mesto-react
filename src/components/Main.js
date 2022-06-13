@@ -18,13 +18,13 @@ const Main = (props) => {
 
       <section>
         <ul className="cards">
-          {props.cards.map((card) => <Card {...card} card={card} onCardClick={props.onCardClick}/> ) }
+          {
+            props.cards.map((card) => (
+              <Card {...card} card={card} onCardClick={props.onCardClick}/>
+            )) 
+          }
         </ul>
-
       </section>
-
-
-
     </main>
   )
 }
