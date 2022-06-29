@@ -34,12 +34,14 @@ function App() {
       .then(([userInformation, cards])=>{
         setUserData(userInformation)
         setCards(cards.map((item) => ({
-          likes: item.likes.length,
+          
+          likes: item.likes,
           name: item.name,
           link: item.link,
           key: item._id
         }))
-          )
+        )
+        // console.log(cards)
       })
       .catch(err => {
         console.log(err);
@@ -82,9 +84,9 @@ function App() {
             onEditProfile = {handleEditProfileClick}
             onEditAvatar = {handleEditAvatarClick}
             onAddPlace = {handleAddPlaceClick}
-            userName = {userData.name}
-            userDescription = {userData.about}
-            userAvatar = {userData.avatar}
+            // userName = {userData.name}
+            // userDescription = {userData.about}
+            // userAvatar = {userData.avatar}
             cards={cards}
             onCardClick={handleCardClick}
           />
