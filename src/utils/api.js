@@ -89,7 +89,13 @@ class Api {
 
     .then(this._checkResponse);
   }
+
+  changeLikeCardStatus(id, isLiked){
+    return isLiked ? this.addLike(id) : this.deleteLike(id)
+  }
 }
+
+
 
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-41',

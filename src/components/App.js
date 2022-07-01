@@ -38,7 +38,7 @@ function App() {
           likes: item.likes,
           name: item.name,
           link: item.link,
-          key: item._id
+          _id: item._id
         }))
         )
         // console.log(cards)
@@ -52,6 +52,16 @@ function App() {
     setIsImagePopupOpen(!isImagePopupOpen)
     setSelectedCard(card)
     console.log(card)
+  }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === curretUser._id);
+    // console.log(card)
+    
+    api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    })
+    .catch(res => console.log(res));
   }
 
   function handleEditProfileClick () {
@@ -74,6 +84,8 @@ function App() {
     setSelectedCard(false)
   }
 
+
+
   return (
     <div className="page">
       <div>
@@ -89,6 +101,7 @@ function App() {
             // userAvatar = {userData.avatar}
             cards={cards}
             onCardClick={handleCardClick}
+            onCardLike={handleCardLike}
           />
 
           <Footer/>

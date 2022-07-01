@@ -2,9 +2,14 @@ import Card from "./Card";
 import React from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
+
 const Main = (props) => {
 
   const currentUser = React.useContext(CurrentUserContext)
+
+
+
+
   return  (
     <main>
       <section className="profile">
@@ -24,7 +29,9 @@ const Main = (props) => {
         <ul className="cards">
           {
             props.cards.map((card) => (
-              <Card {...card} card={card} onCardClick={props.onCardClick}/>
+              
+              <Card {...card} card={card} key={card._id} onCardClick={props.onCardClick} onCardLike={props.onCardLike}/>
+              
             )) 
           }
         </ul>
