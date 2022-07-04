@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
 
 function App() {
 
@@ -101,6 +102,11 @@ function App() {
     closeAllPopups();
   }
 
+  function handleUpdateAvatar (data) {
+    api.setUserAvatar(data).
+    then((res) => setCurrentUser(res))
+    closeAllPopups();
+  }
 
   return (
     <div className="page">
@@ -123,42 +129,9 @@ function App() {
 
           <Footer/>
 
-          <PopupWithForm 
-            name = "avatar"
-            title ="Обновить аватар"
-            isOpen = {isEditAvatarPopupOpen}
-            onClose = {closeAllPopups}
-            buttonText = "Сохранить"
-          >
-            <fieldset className="popup__fieldset">
-              <label className="popup__field">
-                <input id="avatar-button-description" type="url"  name="link" placeholder="Ссылка на аватар"  className="popup__item popup__item_description"  required />
-                <span className="popup__item-error avatar-button-description-error"> </span>
-              </label>
-            </fieldset>
-          </PopupWithForm> 
-
           <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
 
-
-          {/* <PopupWithForm 
-            name = "edit-button"
-            title ="Редактировать профиль"
-            isOpen = {isEditProfilePopupOpen}
-            onClose = {closeAllPopups}
-            buttonText = "Сохранить"
-          >
-            <fieldset className="popup__fieldset">
-              <label className="popup__field">
-                <input id="edit-button-name" type="text"  name="name" placeholder="Введите имя" className="popup__item popup__item_name" required minLength ="2" maxLength = "40" />
-                <span className="popup__item-error edit-button-name-error"></span>
-              </label>
-              <label className="popup__field">
-                <input id="edit-button-description" type="text"  name="about" placeholder="Введите род деятельности" className="popup__item popup__item_description" required minLength ="2" maxLength = "200" />
-                <span className="popup__item-error edit-button-description-error"> </span>
-              </label>
-            </fieldset>
-          </PopupWithForm>  */}
+          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
 
           <PopupWithForm 
             name = "add-button"
