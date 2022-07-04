@@ -9,7 +9,6 @@ const EditAvatarPopup = (props) => {
   const currentUser = React.useContext(CurrentUserContext)
   const avatarRef = React.useRef();
 
-
   useEffect(() => {
     avatarRef.current.value=currentUser.avatar
   }, [currentUser]); 
@@ -19,9 +18,7 @@ const EditAvatarPopup = (props) => {
   
     props.onUpdateAvatar({
       avatar: avatarRef.current.value,
-
     });
-    
   }
 
   return (
