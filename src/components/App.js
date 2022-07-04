@@ -25,15 +25,7 @@ function App() {
     Promise.all([api.getUserInformation(), api.getInitialCards()])
       .then(([userInformation, cards])=>{
         setCurrentUser(userInformation)
-        setCards(cards.map((item) => ({       
-          likes: item.likes,
-          name: item.name,
-          link: item.link,
-          _id: item._id,
-          owner: item.owner
-        }))
-        )
-        console.log(cards)
+        setCards(cards)
       })
       .catch(err => {
         console.log(err);
@@ -41,14 +33,12 @@ function App() {
   },[])
 
   function handleCardClick(card) {
-    setIsImagePopupOpen(!isImagePopupOpen)
+    setIsImagePopupOpen(true)
     setSelectedCard(card)
-    console.log(card)
   }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === curretUser._id);
-    // console.log(card)
     
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
@@ -58,21 +48,20 @@ function App() {
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
-    // .then(res => console.log(res))
     .then(() => {setCards((state) => state.filter((c) => c._id !== card._id ));})
     .catch(res => console.log(res));
   }
 
   function handleEditProfileClick () {
-    setIsEditProfilePopupOpen(!isEditProfilePopupOpen)
+    setIsEditProfilePopupOpen(true)
   }
 
   function handleEditAvatarClick () {
-    setIsEditAvatarPopupOpen(!isEditAvatarPopupOpen)
+    setIsEditAvatarPopupOpen(true)
   }
 
   function handleAddPlaceClick () {
-    setIsAddPlacePopupOpen(!isAddPlacePopupOpen)
+    setIsAddPlacePopupOpen(true)
   }
 
   function closeAllPopups () {
@@ -80,7 +69,7 @@ function App() {
     setIsEditAvatarPopupOpen(false)
     setIsAddPlacePopupOpen(false)
     setIsImagePopupOpen(false)
-    setSelectedCard(false)
+  
   }
 
   function handleUpdateUser (data) {
@@ -122,11 +111,23 @@ function App() {
 
           <Footer/>
 
-          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
+          <EditProfilePopup 
+            isOpen={isEditProfilePopupOpen} 
+            onClose={closeAllPopups} 
+            onUpdateUser={handleUpdateUser}
+          />
 
-          <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
+          <EditAvatarPopup 
+            isOpen={isEditAvatarPopupOpen} 
+            onClose={closeAllPopups} 
+            onUpdateAvatar={handleUpdateAvatar}
+          />
 
-          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
+          <AddPlacePopup 
+            isOpen={isAddPlacePopupOpen} 
+            onClose={closeAllPopups} 
+            onAddPlace={handleAddPlaceSubmit}
+          />
 
           <PopupWithForm 
             name = "trash"
