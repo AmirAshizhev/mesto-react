@@ -6,6 +6,7 @@ import ImagePopup from "./ImagePopup";
 import { useState, useEffect } from 'react';
 import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import EditProfilePopup from "./EditProfilePopup";
 
 function App() {
 
@@ -94,6 +95,11 @@ function App() {
     setSelectedCard(false)
   }
 
+  function handleUpdateUser (data) {
+    api.setUserInformation(data).
+    then((res) => setCurrentUser(res))
+    closeAllPopups();
+  }
 
 
   return (
@@ -132,7 +138,10 @@ function App() {
             </fieldset>
           </PopupWithForm> 
 
-          <PopupWithForm 
+          <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser}/>
+
+
+          {/* <PopupWithForm 
             name = "edit-button"
             title ="Редактировать профиль"
             isOpen = {isEditProfilePopupOpen}
@@ -149,7 +158,7 @@ function App() {
                 <span className="popup__item-error edit-button-description-error"> </span>
               </label>
             </fieldset>
-          </PopupWithForm> 
+          </PopupWithForm>  */}
 
           <PopupWithForm 
             name = "add-button"
