@@ -8,6 +8,7 @@ import api from "../utils/api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
 
@@ -16,25 +17,23 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
 
-  const [userData, setUserData] = useState({})
   const [cards, setCards] = useState([])
   const [selectedCard, setSelectedCard] = useState(null)
-
   const [curretUser, setCurrentUser] = useState({})
 
-  useEffect(() => {
-    api.getUserInformation()
-    .then((res)=>{ 
-      // console.log(res)
-      setCurrentUser(res);
-    })
-  },[])
+  // useEffect(() => {
+  //   api.getUserInformation()
+  //   .then((res)=>{ 
+  //     // console.log(res)
+  //     setCurrentUser(res);
+  //   })
+  // },[])
 
 
   useEffect(() => {
     Promise.all([api.getUserInformation(), api.getInitialCards()])
       .then(([userInformation, cards])=>{
-        setUserData(userInformation)
+        setCurrentUser(userInformation)
         setCards(cards.map((item) => ({
           
           likes: item.likes,
@@ -108,6 +107,12 @@ function App() {
     closeAllPopups();
   }
 
+  function handleAddPlaceSubmit (data) {
+    api.getNewCard(data).
+    then((newCard) => setCards([newCard, ...cards]))
+    closeAllPopups();
+  }
+
   return (
     <div className="page">
       <div>
@@ -133,7 +138,9 @@ function App() {
 
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar={handleUpdateAvatar}/>
 
-          <PopupWithForm 
+          <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
+
+          {/* <PopupWithForm 
             name = "add-button"
             title ="Новое место"
             isOpen = {isAddPlacePopupOpen}
@@ -150,7 +157,7 @@ function App() {
                 <span className="popup__item-error add-button-description-error"> </span>
               </label>
             </fieldset>
-          </PopupWithForm>
+          </PopupWithForm> */}
 
           <PopupWithForm 
             name = "trash"
