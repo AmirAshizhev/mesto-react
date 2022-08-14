@@ -25,5 +25,5 @@
 - Разместить production-билд на github pages - `npm run deploy`
 
 ### Ссылка на проект
-[Нажми на меня]
+[Нажми на меня](https://amirashizhev.github.io/mesto-react/)
 
