@@ -20,9 +20,10 @@
 ### Инструкция по развёртыванию
 - Скачать или склонировать репозитори
 - Установить зависимости при помощи npm - `npm i`
-- Запустить в development режиме - npm run dev
-- Запустить сборку production-билда - npm run start
-- Разместить production-билд на github pages - npm run deploy
+- Запустить в development режиме - `npm run dev`
+- Запустить сборку production-билда - `npm run start`
+- Разместить production-билд на github pages - `npm run deploy`
 
 ### Ссылка на проект
+[Нажми на меня]
 
